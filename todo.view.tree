@@ -1,0 +1,30 @@
+$todo $mol_view
+	sub /
+		<= Name $mol_string
+			hint \Task name
+			value?name <=> name?name \
+		<= Add $mol_button_major
+			title \Add task
+			event_click?val <=> add?val null
+		<= List $mol_list
+			rows <= rows /
+	-
+	Task!id $todo_task
+		task_name?val <=> task_name!id?val \
+		task_stage?val <=> task_stage!id?val \
+		task_completed?val <=> task_completed!id?val false
+		task_remove?val <=> task_remove!id?val null
+
+$todo_task $mol_view
+	attr *
+		^
+		todo_task_completed <= task_completed
+	sub /
+		<= Task_name $mol_view
+			sub / <= task_name \
+		<= Task_completed $mol_check_box
+			title <= task_stage \
+			checked?val <=> task_completed?val false
+		<= Task_remove $mol_button_minor
+			title \Delete
+			event_click?val <=> task_remove?val null
